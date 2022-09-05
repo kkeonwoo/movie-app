@@ -8,23 +8,38 @@
 }
 
 #root {
-  width: 600px;
-  height: 700px;
-  overflow: hidden;
-  padding-top: 80px;
   color: #fff;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border-radius: 10px;
-  background-color: #222;
+  width: 600px;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 #root .App {
-  height: 100%;
-  padding-bottom: 40px;
+  height: 700px;
+  position: relative;
+  background-color: #222;
+  overflow: hidden;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+}
+#root .App.scroll {
+  padding-left: 20px;
+  overflow-y: scroll;
+}
+#root .App.scroll::-webkit-scrollbar {
+  width: 20px;
+}
+#root .App.scroll::-webkit-scrollbar-thumb {
+  background-color: #666;
+  border: 5px solid transparent;
+  border-radius: 10px;
+  background-clip: padding-box;
+}
+#root .App.scroll::-webkit-scrollbar-track {
+  margin-top: 100px;
+  background-color: transparent;
 }
 
 a {
@@ -38,53 +53,49 @@ a {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 60px;
-  position: absolute;
+  height: 100px;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 99;
   overflow: hidden;
+  border-radius: 20px 20px 0 0;
   color: #fff;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
-  background-color: #111;
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
 }
 #header h1 {
-  margin-bottom: 5px;
+  margin-bottom: 20px;
   font-size: 20px;
   font-weight: 700;
   text-transform: uppercase;
 }
+#header #search input {
+  border-radius: 10px;
+  padding: 0 5px;
+  margin-right: 10px;
+  transition: all 0.25s ease-in-out;
+}
 
 .container {
-  height: 100%;
   margin: 0 auto;
-  padding-left: 20px;
   position: relative;
-}
-.container.scroll {
-  overflow-y: scroll;
-}
-.container.scroll::-webkit-scrollbar {
-  width: 20px;
-}
-.container.scroll::-webkit-scrollbar-thumb {
-  border: 5px solid transparent;
-  background-color: #666;
-  border-radius: 10px;
-  background-clip: padding-box;
-}
-.container.scroll::-webkit-scrollbar-track {
-  background-color: transparent;
+  padding-top: 100px;
 }
 .container .title {
   font-size: 24px;
   font-weight: 800;
   text-transform: uppercase;
+  margin-bottom: 20px;
 }
 .container .title strong {
   font-weight: 700;
+}
+.container .title span {
+  font-size: 14px;
+  font-weight: 300;
 }
 .container .movieList {
   display: flex;
@@ -98,9 +109,13 @@ a {
   text-align: left;
   margin: 4px;
 }
+.container .movieList li:hover .info .title {
+  transform: translateY(-10px);
+}
 .container .movieList li:hover .info .release {
-  display: block;
+  height: 100%;
   opacity: 1;
+  transform: translateY(0);
 }
 .container .movieList li:hover .img .point {
   display: flex;
@@ -126,7 +141,7 @@ a {
   content: "";
   width: 100%;
   height: 100%;
-  transition: background 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   background: rgb(0, 0, 0);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 100%);
 }
@@ -163,12 +178,17 @@ a {
   font-weight: 900;
   line-height: 1.5;
 }
+.container .movieList li .info .title {
+  transition: all 0.3s ease-in-out;
+  margin-bottom: 0;
+}
 .container .movieList li .info .release {
-  transition: opacity 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
   font-size: 12px;
   font-weight: 300;
   margin-bottom: 10px;
-  display: none;
+  display: block;
+  transform: translateY(20px);
   opacity: 0;
 }
 .container .movieList li .overview {
@@ -190,24 +210,29 @@ a {
   word-break: break-all;
 }
 
-#detail {
+.detail {
   width: 100%;
-  height: 100%;
   text-align: left;
 }
-#detail .container {
-  padding: 0 60px;
+.detail#profileDetail .info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 30px;
 }
-#detail .container .title {
+.detail .container {
+  padding: 100px 40px 40px;
+}
+.detail .container .title {
   margin-bottom: 20px;
   text-align: center;
 }
-#detail .container .img {
+.detail .container .img {
   position: relative;
   overflow: hidden;
   text-align: center;
 }
-#detail .container .img::before {
+.detail .container .img::before {
   display: block;
   position: absolute;
   content: "";
@@ -217,7 +242,7 @@ a {
   background: rgb(255, 255, 255);
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 50%, rgba(255, 255, 255, 0) 100%);
 }
-#detail .container .img::after {
+.detail .container .img::after {
   display: block;
   position: absolute;
   content: "";
@@ -229,10 +254,10 @@ a {
   background: rgb(255, 255, 255);
   background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 70%);
 }
-#detail .container .img img {
+.detail .container .img img {
   vertical-align: bottom;
 }
-#detail .container .titleBox {
+.detail .container .titleBox {
   width: 100%;
   display: flex;
   align-items: center;
@@ -240,70 +265,54 @@ a {
   position: relative;
   margin-top: 20px;
 }
-#detail .container .titleBox h3 {
+.detail .container .titleBox h3 {
   font-weight: 700;
 }
-#detail .container .titleBox .originTitle {
+.detail .container .titleBox .originTitle {
   font-size: 12px;
   color: #999;
 }
-#detail .container .titleBox .release {
+.detail .container .titleBox .release {
   bottom: 0;
   left: 0;
   position: absolute;
   margin-bottom: 20px;
   font-size: 12px;
 }
-#detail .container .summary dl {
+.detail .container .summary dl {
   display: flex;
   align-items: center;
   margin: 10px 0;
 }
-#detail .container .summary dl:nth-child(6), #detail .container .summary dl:nth-child(7) {
+.detail .container .summary dl:nth-child(6), .detail .container .summary dl:nth-child(7) {
   flex-direction: column;
   align-items: start;
   text-transform: uppercase;
   font-size: 14px;
 }
-#detail .container .summary dl:nth-child(6) dt, #detail .container .summary dl:nth-child(7) dt {
+.detail .container .summary dl:nth-child(6) dt, .detail .container .summary dl:nth-child(7) dt {
   margin-bottom: 10px;
 }
-#detail .container .summary dl dt {
+.detail .container .summary dl dt {
   color: #999;
   display: block;
   width: 100px;
 }
-#detail .container .profileList {
+.detail .container .profileList {
   margin: 10px 0;
   display: flex;
-  position: relative;
 }
-#detail .container .profileList .swiper-wrapper {
-  width: 100%;
+.detail .container .profileList .swiper-wrapper {
+  width: 500px;
 }
-#detail .container .profileList .swiper-wrapper::before {
-  display: block;
-  position: absolute;
-  content: "";
-  top: 0;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 1;
-  pointer-events: none;
-  background: rgb(0, 0, 0);
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgb(0, 0, 0) 100%);
-}
-#detail .container .profileList .swiper-wrapper .swiper-slide {
-  width: 120px !important;
+.detail .container .profileList .swiper-wrapper .item {
+  width: 120px;
   height: 200px;
-  margin: 0 5px;
   border-radius: 10px;
   overflow: hidden;
   position: relative;
 }
-#detail .container .profileList .swiper-wrapper .swiper-slide::before {
+.detail .container .profileList .swiper-wrapper .item::before {
   display: block;
   position: absolute;
   content: "";
@@ -316,12 +325,12 @@ a {
   background: rgb(0, 0, 0);
   background: linear-gradient(180deg, rgba(0, 0, 0, 0) 60%, rgb(0, 0, 0) 100%);
 }
-#detail .container .profileList .swiper-wrapper .swiper-slide img {
+.detail .container .profileList .swiper-wrapper .item img {
   height: 100%;
   width: 100%;
   object-fit: cover;
 }
-#detail .container .profileList .swiper-wrapper .swiper-slide span {
+.detail .container .profileList .swiper-wrapper .item span {
   display: block;
   width: 100%;
   text-align: center;
@@ -339,7 +348,10 @@ a {
   z-index: 1;
   transform: translateX(-50%);
 }
-#detail .container .overview .desc {
+.detail .container .overview {
+  margin-bottom: 30px;
+}
+.detail .container .overview .desc {
   font-size: 14px;
   display: -webkit-box;
   height: 7.5em;
@@ -351,17 +363,17 @@ a {
   word-break: break-all;
   margin-bottom: 20px;
 }
-#detail .container .overview .vote {
+.detail .container .overview .vote {
   font-size: 14px;
 }
-#detail .container .overview .vote strong {
+.detail .container .overview .vote strong {
   font-size: 18px;
 }
 
 .btns {
   position: absolute;
   left: 10%;
-  top: 0;
+  top: 100px;
 }
 .btns .btn {
   width: 25px;
@@ -388,13 +400,9 @@ a {
 
 #footer {
   width: 100%;
-  position: absolute;
-  bottom: 15px;
   font-size: 12px;
   color: #999;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  margin: 20px 0;
 }
 #footer strong {
   font-weight: 900;

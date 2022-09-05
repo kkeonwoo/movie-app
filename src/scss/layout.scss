@@ -11,19 +11,34 @@
 }
 
 #root {
-  width: 600px;
-  height: 700px;
-  overflow: hidden;
-  padding-top: 80px;
   color: #fff;
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
-  border-radius: 10px;
-  background-color: #222;
+  width: 600px;
   @include absCenter(true, true);
   .App {
-    height: 100%;
-    padding-bottom: 40px;
+    height: 700px;
+    position: relative;
+    background-color: #222;
+    overflow: hidden;
+    border-radius: 20px;
+    box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.1);
+    &.scroll {
+      padding-left: 20px;
+      overflow-y: scroll;
+      &::-webkit-scrollbar {
+        width: 20px;
+      }
+      &::-webkit-scrollbar-thumb {
+        background-color: #666;
+        border: 5px solid transparent;
+        border-radius: 10px;
+        background-clip: padding-box;
+      }
+      &::-webkit-scrollbar-track {
+        margin-top: 100px;
+        background-color: transparent;
+      }
+    }
   }
 }
 
@@ -38,51 +53,60 @@ a {
   align-items: center;
   flex-direction: column;
   width: 100%;
-  height: 60px;
-  position: absolute;
+  height: 100px;
+  position: fixed;
   top: 0;
   right: 0;
   left: 0;
   z-index: 99;
   overflow: hidden;
+  border-radius: 20px 20px 0 0;
   color: #fff;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
-  background-color: #111;
+  background-color: rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(10px);
+  // &.on {
+  //   height: 100px;
+  //   input {
+  //     width: 400px;
+  //     height: 20px;
+  //     opacity: 1;
+  //   }
+  // }
   h1 {
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     font-size: 20px;
     font-weight: 700;
     text-transform: uppercase;
   }
+  #search {
+    input {
+      // width: 0;
+      // height: 0;
+      // opacity: 0;
+      border-radius: 10px;
+      padding: 0 5px;
+      margin-right: 10px;
+      transition: all 0.25s ease-in-out;
+    }
+  }
 }
 
 .container {
-  height: 100%;
   margin: 0 auto;
-  padding-left: 20px;
   position: relative;
-  &.scroll {
-    overflow-y: scroll;
-    &::-webkit-scrollbar {
-      width: 20px;
-    }
-    &::-webkit-scrollbar-thumb {
-      border: 5px solid transparent;
-      background-color: #666;
-      border-radius: 10px;
-      background-clip: padding-box;
-    }
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-  }
+  padding-top: 100px;
   .title {
     font-size: 24px;
     font-weight: 800;
     text-transform: uppercase;
+    margin-bottom: 20px;
     strong {
       font-weight: 700;
+    }
+    span {
+      font-size: 14px;
+      font-weight: 300;
     }
   }
   .movieList {
@@ -97,9 +121,13 @@ a {
       margin: 4px;
       &:hover {
         .info {
+          .title {
+            transform: translateY(-10px);
+          }
           .release {
-            display: block;
+            height: 100%;
             opacity: 1;
+            transform: translateY(0);
           }
         }
         .img .point {
@@ -124,7 +152,7 @@ a {
           @include pseudo;
           width: 100%;
           height: 100%;
-          transition: background 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
           background: rgb(0, 0, 0);
           background: linear-gradient(180deg, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.8) 100%);
         }
@@ -161,12 +189,17 @@ a {
         font-size: 18px;
         font-weight: 900;
         line-height: 1.5;
+        .title {
+          transition: all 0.3s ease-in-out;
+          margin-bottom: 0;
+        }
         .release {
-          transition: opacity 0.3s ease-in-out;
+          transition: all 0.3s ease-in-out;
           font-size: 12px;
           font-weight: 300;
           margin-bottom: 10px;
-          display: none;
+          display: block;
+          transform: translateY(20px);
           opacity: 0;
         }
       }
@@ -185,12 +218,19 @@ a {
   }
 }
 
-#detail {
+.detail {
   width: 100%;
-  height: 100%;
   text-align: left;
+  &#profileDetail {
+    .info {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+    }
+  }
   .container {
-    padding: 0 60px;
+    padding: 100px 40px 40px;
     .title {
       margin-bottom: 20px;
       text-align: center;
@@ -268,28 +308,16 @@ a {
     .profileList {
       margin: 10px 0;
       display: flex;
-      position: relative;
       .swiper-wrapper {
-        width: 100%;
-        &::before {
-          @include pseudo;
-          top: 0;
-          left: 0;
-          right: 0;
-          width: 100%;
-          height: 100%;
-          z-index: 1;
-          pointer-events: none;
-          background: rgb(0, 0, 0);
-          background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%);
-        }
-        .swiper-slide {
-          width: 120px !important;
+        width: 500px;
+        .item {
+          width: 120px;
           height: 200px;
-          margin: 0 5px;
+          // margin: 0 5px;
           border-radius: 10px;
           overflow: hidden;
           position: relative;
+
           &::before {
             @include pseudo;
             top: 0;
@@ -321,6 +349,7 @@ a {
       }
     }
     .overview {
+      margin-bottom: 30px;
       .desc {
         font-size: 14px;
         @include multiEllipsis(5, 1.5);
@@ -339,7 +368,7 @@ a {
 .btns {
   position: absolute;
   left: 10%;
-  top: 0;
+  top: 100px;
   .btn {
     width: 25px;
     height: 25px;
@@ -366,11 +395,9 @@ a {
 
 #footer {
   width: 100%;
-  position: absolute;
-  bottom: 15px;
   font-size: 12px;
   color: #999;
-  @include absCenter(true, false);
+  margin: 20px 0;
   strong {
     font-weight: 900;
   }
