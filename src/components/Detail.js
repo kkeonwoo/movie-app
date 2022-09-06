@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Profile from "./Profile";
 import Similar from "./Similar";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,7 +15,7 @@ export default function Detail() {
   const [crew, setCrew] = useState([]);
   const [similar, setSimilar] = useState([]);
   const [keyword, setKeyword] = useState([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     axios.get(`https://api.themoviedb.org/3/movie/${movieID}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=ko-KR&page=1`).then((res) => {
       setDetail(res.data);
@@ -41,11 +41,14 @@ export default function Detail() {
       <div className="container">
         <div className="btns">
           <Link to="/">
-            <div className="btn">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
+            <button
+              className="btn"
+              onClick={() => {
+                navigate(-1);
+              }}
+            >
+              <span>BACK ⬅️</span>
+            </button>
           </Link>
         </div>
         <h2 className="title">
@@ -97,7 +100,7 @@ export default function Detail() {
                 <dt>관객투표</dt>
                 <dd>{detail.vote_count}</dd>
               </dl>
-              <dl>
+              <dl className="column">
                 <dt>cast</dt>
                 <dd>
                   <Swiper className="profileList" spaceBetween={5} slidesPerView={"auto"}>
@@ -111,17 +114,25 @@ export default function Detail() {
                   </Swiper>
                 </dd>
               </dl>
-              <dl>
+              <dl className="column">
                 <dt>crew</dt>
                 <dd>
                   <Swiper className="profileList" spaceBetween={5} slidesPerView={"auto"}>
-                    {crew.map((item, idx) => {
-                      return (
-                        <SwiperSlide className="item">
-                          <Profile profileInfo={item} key={idx} />
-                        </SwiperSlide>
-                      );
-                    })}
+                    {crew
+                      .filter((item, idx) => {
+                        // filter는 새로운 배열을 출력
+                        if (idx < 15) {
+                          return true;
+                        }
+                      })
+                      .map((item, idx) => {
+                        // 배열을 모두 순환출력
+                        return (
+                          <SwiperSlide className="item">
+                            <Profile profileInfo={item} key={idx} />
+                          </SwiperSlide>
+                        );
+                      })}
                   </Swiper>
                 </dd>
               </dl>

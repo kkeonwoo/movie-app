@@ -8,7 +8,7 @@ import List from "./components/List";
 import Detail from "./components/Detail";
 import SearchResult from "./components/SearchResult.";
 import ProfileDetail from "./components/ProfileDetail";
-import SimilarDetail from "./components/SimilarDetail";
+
 function App() {
   return (
     <BrowserRouter>
@@ -18,8 +18,9 @@ function App() {
           <Route path="/" element={<List />} />
           <Route path="/detail/:id" element={<Detail />} />
           <Route path="/search" element={<SearchResult />} />
-          <Route path="/profile/:id" element={<ProfileDetail />} />
-          <Route path="/similar/:id" element={<SimilarDetail />} />
+          <Route path="/profile/:personId" element={<ProfileDetail />} />
+          <Route path="/movie/:id" element={<Detail />} />
+          <Route path="/similar/:id" element={<Detail />} />
         </Routes>
         <Footer />
       </div>

@@ -2,17 +2,25 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Image from "./Image";
+import { Swiper, SwiperSlide } from "swiper/react";
+import MovieItem from "./MovieItem";
+
 export default function ProfileDetail() {
   const params = useParams();
-  const person = params.id;
+  const personId = params.personId;
   const [profile, setProfile] = useState([]);
+  const [movies, setMovies] = useState([]);
   // console.log(params);
   // console.log(person);
   useEffect(() => {
-    axios.get(`https://api.themoviedb.org/3/person/${person}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=ko-KR`).then((res) => {
-      console.log(res.data.results);
-      console.log(res.data);
+    axios.get(`https://api.themoviedb.org/3/person/${personId}?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`).then((res) => {
+      // console.log(res.data.results);
+      // console.log(res.data);
       setProfile(res.data);
+    });
+    axios.get(`https://api.themoviedb.org/3/person/${personId}/movie_credits?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US`).then((res) => {
+      console.log(res.data.cast);
+      setMovies(res.data.cast);
     });
   }, []);
 
@@ -45,6 +53,26 @@ export default function ProfileDetail() {
               <dl>
                 <dt>명성</dt>
                 <dd>{profile.popularity}</dd>
+              </dl>
+              <dl className="column">
+                <dt>필모그래피</dt>
+                <dd>
+                  <Swiper className="profileList" spaceBetween={5} slidesPerView={"auto"}>
+                    {movies
+                      .filter((item, idx) => {
+                        if (idx < 10) {
+                          return true;
+                        }
+                      })
+                      .map((item, idx) => {
+                        return (
+                          <SwiperSlide className="item">
+                            <MovieItem movieInfo={item} key={idx} />
+                          </SwiperSlide>
+                        );
+                      })}
+                  </Swiper>
+                </dd>
               </dl>
             </div>
           </div>

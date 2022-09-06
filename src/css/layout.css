@@ -284,13 +284,13 @@ a {
   align-items: center;
   margin: 10px 0;
 }
-.detail .container .summary dl:nth-child(6), .detail .container .summary dl:nth-child(7) {
+.detail .container .summary dl.column {
   flex-direction: column;
   align-items: start;
   text-transform: uppercase;
   font-size: 14px;
 }
-.detail .container .summary dl:nth-child(6) dt, .detail .container .summary dl:nth-child(7) dt {
+.detail .container .summary dl.column dt {
   margin-bottom: 10px;
 }
 .detail .container .summary dl dt {
@@ -376,26 +376,10 @@ a {
   top: 100px;
 }
 .btns .btn {
-  width: 25px;
-  height: 25px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: start;
-}
-.btns .btn span {
-  display: block;
-  width: 100%;
-  height: 2px;
-  margin: 2px 0;
-  border-radius: 2px;
-  background-color: #fff;
-}
-.btns .btn span:nth-child(2) {
-  width: 50%;
-}
-.btns .btn span:nth-child(3) {
-  width: 70%;
+  cursor: pointer;
+  border: none;
+  background: none;
+  color: #fff;
 }
 
 #footer {
