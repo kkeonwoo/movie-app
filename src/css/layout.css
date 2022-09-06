@@ -178,11 +178,11 @@ a {
   font-weight: 900;
   line-height: 1.5;
 }
-.container .movieList li .info .title {
+.container .movieList li .info .titleBox .title {
   transition: all 0.3s ease-in-out;
   margin-bottom: 0;
 }
-.container .movieList li .info .release {
+.container .movieList li .info .titleBox .release {
   transition: all 0.3s ease-in-out;
   font-size: 12px;
   font-weight: 300;
@@ -191,7 +191,7 @@ a {
   transform: translateY(20px);
   opacity: 0;
 }
-.container .movieList li .overview {
+.container .movieList li .info .overview {
   width: 100%;
   height: 100%;
   position: absolute;
@@ -199,7 +199,7 @@ a {
   left: 0;
   background-color: rgba(0, 0, 0, 0.3);
 }
-.container .movieList li .overview .desc {
+.container .movieList li .info .overview .desc {
   display: -webkit-box;
   height: 4.5em;
   overflow: hidden;
@@ -259,11 +259,33 @@ a {
 }
 .detail .container .titleBox {
   width: 100%;
+  height: 150px;
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: space-between;
   padding-bottom: 40px;
   position: relative;
   margin-top: 20px;
+}
+.detail .container .titleBox .keywords {
+  display: flex;
+}
+.detail .container .titleBox .keywords .keyword {
+  display: block;
+  padding: 10px;
+  background-color: #fff;
+  color: #111;
+  font-weight: 900;
+  text-transform: uppercase;
+  border-radius: 5px;
+  word-break: keep-all;
+  font-size: 10px;
+  letter-spacing: -1px;
+  margin: 0 3px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 .detail .container .titleBox h3 {
   font-weight: 700;
@@ -271,13 +293,11 @@ a {
 .detail .container .titleBox .originTitle {
   font-size: 12px;
   color: #999;
+  margin-bottom: 20px;
 }
 .detail .container .titleBox .release {
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  margin-bottom: 20px;
   font-size: 12px;
+  margin-bottom: 20px;
 }
 .detail .container .summary dl {
   display: flex;
@@ -372,7 +392,7 @@ a {
 
 .btns {
   position: absolute;
-  left: 10%;
+  left: 5%;
   top: 100px;
 }
 .btns .btn {

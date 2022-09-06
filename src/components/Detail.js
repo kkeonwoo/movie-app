@@ -32,10 +32,10 @@ export default function Detail() {
       setKeyword(res.data.keywords);
     });
     axios.get(`https://api.themoviedb.org/3/movie/${movieID}/similar?api_key=${process.env.REACT_APP_MOVIE_KEY}&language=en-US&page=1`).then((res) => {
-      console.log(res.data.results);
+      // console.log(res.data.results);
       setSimilar(res.data.results);
     });
-  }, []);
+  }, [similar]);
   return (
     <div id="detail" className="detail">
       <div className="container">
@@ -63,7 +63,7 @@ export default function Detail() {
               <h3>{detail.title}</h3>
               <p className="originTitle">( {detail.original_title} )</p>
               <p className="release">{detail.release_date}</p>
-              <ul className="keyword">
+              <ul className="keywords">
                 {keyword
                   .filter((item, idx) => {
                     if (idx < 3) {
@@ -71,7 +71,7 @@ export default function Detail() {
                     }
                   })
                   .map((item, idx) => {
-                    return <li>{item.name}</li>;
+                    return <li className="keyword">{item.name}</li>;
                   })}
               </ul>
             </div>

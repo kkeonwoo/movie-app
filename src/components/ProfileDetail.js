@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Image from "./Image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import MovieItem from "./MovieItem";
@@ -8,6 +8,7 @@ import MovieItem from "./MovieItem";
 export default function ProfileDetail() {
   const params = useParams();
   const personId = params.personId;
+  const navigate = useNavigate();
   const [profile, setProfile] = useState([]);
   const [movies, setMovies] = useState([]);
   // console.log(params);
@@ -27,6 +28,16 @@ export default function ProfileDetail() {
   return (
     <div id="profileDetail" className="detail">
       <div className="container">
+        <div className="btns">
+          <button
+            className="btn"
+            onClick={() => {
+              navigate(-1);
+            }}
+          >
+            <span>BACK ⬅️</span>
+          </button>
+        </div>
         <h2 className="title">
           <strong>{profile.name}</strong>
         </h2>
