@@ -64,7 +64,8 @@ a {
   color: #fff;
   box-shadow: 0 10px 5px rgba(0, 0, 0, 0.1);
   background-color: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
 }
 #header h1 {
   margin-bottom: 20px;
@@ -148,7 +149,8 @@ a {
 .container .movieList li .img img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .container .movieList li .img .point {
   display: flex;
@@ -348,7 +350,8 @@ a {
 .detail .container .profileList .swiper-wrapper .item img {
   height: 100%;
   width: 100%;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 .detail .container .profileList .swiper-wrapper .item span {
   display: block;
